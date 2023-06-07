@@ -61,9 +61,8 @@ unsigned int Journeys::getTotalNumJourneys(char start, char end)
     return count;
 }
 
-// TODO: Consider Uppercase Characters as city names. 
 int Journeys::citiesToIndex(char c) {
-    return  c - 'a';
+    return c >= 'a' && c <= 'z' ? c - 'a' : c -'A';
 }
 
 unsigned int Journeys::traverseGraph(int prev, int curr, int end)
