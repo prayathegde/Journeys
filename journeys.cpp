@@ -48,8 +48,6 @@ unsigned int Journeys::getTotalNumJourneys(char start, char end)
 {
     int st = citiesToIndex(start);
     int en = citiesToIndex(end);
-    auto graph = m_citiesAdjacencyMatrix;
-    vector<int> path;
     unsigned int count = 0;
     for (int i = 0; i < m_citiesAdjacencyMatrix.size(); i++) {
         auto v = m_citiesAdjacencyMatrix[st][i];
