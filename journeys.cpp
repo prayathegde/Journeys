@@ -52,8 +52,9 @@ unsigned int Journeys::getTotalNumJourneys(char start, char end)
     vector<int> path;
     unsigned int count = 0;
     for (int i = 0; i < m_citiesAdjacencyMatrix.size(); i++) {
-        for (int j = 0; j < m_citiesAdjacencyMatrix[st][i]; j++) {
-            count += traverseGraph(st, i, en); 
+        auto v = m_citiesAdjacencyMatrix[st][i];
+        if (v > 0) {
+            count += (traverseGraph(st, i, en) * v);
         }
     }
 
@@ -77,8 +78,9 @@ unsigned int Journeys::traverseGraph(int prev, int curr, int end)
     unsigned int count = 0;
 
     for (int i = 0; i < m_citiesAdjacencyMatrix.size(); i++) {
-        for (int j = 0; j < m_citiesAdjacencyMatrix[curr][i]; j++) {
-            count += traverseGraph(curr, i, end);
+        auto v = m_citiesAdjacencyMatrix[curr][i];
+        if (v > 0) {
+            count += (traverseGraph(curr, i, end) * v);
         }
     }
 
