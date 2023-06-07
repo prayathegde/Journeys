@@ -1,6 +1,5 @@
 #include "journeys.h"
 
-
 Journeys::Journeys(const vector<vector<char>> &citiesJoureyMap) : Journeys(citiesJoureyMap, 26)
 {
 }
@@ -42,13 +41,23 @@ bool Journeys::isValidJourney(const char* journey)
             return false;
         }
     }
-
     return true;
 }
 
 unsigned int Journeys::getTotalNumJourneys(char start, char end)
 {
-    return 0;
+    int st = citiesToIndex(start);
+    int en = citiesToIndex(end);
+    auto graph = m_citiesAdjacencyMatrix;
+    vector<int> path;
+    unsigned int count = 0;
+    for (int i = 0; i < m_citiesAdjacencyMatrix.size(); i++) {
+        for (int j = 0; j < m_citiesAdjacencyMatrix[st][i]; j++) {
+            count += traverseGraph(st, i, en); 
+        }
+    }
+
+    return count;
 }
 
 // TODO: Consider Uppercase Characters as city names. 
@@ -56,7 +65,25 @@ int Journeys::citiesToIndex(char c) {
     return  c - 'a';
 }
 
-bool Journeys::traverseGraph(string &s, vector<vector<int>> &graph, int index)
+unsigned int Journeys::traverseGraph(int prev, int curr, int end)
 {
-    return false;
+    if (curr == end) {
+        return 1;
+    }
+
+    m_citiesAdjacencyMatrix[prev][curr] -= 1;
+    m_citiesAdjacencyMatrix[curr][prev] -= 1;
+
+    unsigned int count = 0;
+
+    for (int i = 0; i < m_citiesAdjacencyMatrix.size(); i++) {
+        for (int j = 0; j < m_citiesAdjacencyMatrix[curr][i]; j++) {
+            count += traverseGraph(curr, i, end);
+        }
+    }
+
+    m_citiesAdjacencyMatrix[prev][curr] += 1;
+    m_citiesAdjacencyMatrix[curr][prev] += 1;
+
+    return count;
 }

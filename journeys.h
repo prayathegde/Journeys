@@ -23,5 +23,5 @@ private:
 
     void init();
     int citiesToIndex(char c);
-    bool traverseGraph(string &s, vector<vector<int>> &graph, int index);
+    unsigned int traverseGraph(int prev, int curr, int end);
 };
