@@ -21,7 +21,9 @@ void Journeys::init()
         cerr << "Error :Number of Cities is Out of Range" << endl;
         return;
     }
+
     m_citiesAdjacencyMatrix = vector<vector<int>> (m_numberOfCities, vector<int> (m_numberOfCities, 0));
+    m_citiesMemo = vector<vector<int>> (m_numberOfCities, vector<int> (m_numberOfCities, -1));
 
     for (auto connection : m_citiesJoureyMap) {
         int x = citiesToIndex(connection[0]);
@@ -76,6 +78,10 @@ unsigned int Journeys::traverseGraph(int prev, int curr, int end)
     m_citiesAdjacencyMatrix[prev][curr] -= 1;
     m_citiesAdjacencyMatrix[curr][prev] -= 1;
 
+    if (m_citiesMemo[prev][curr] != -1)  {
+        return m_citiesMemo[prev][curr];
+    }
+
     unsigned int count = 0;
 
     for (int i = 0; i < m_citiesAdjacencyMatrix.size(); i++) {
@@ -87,6 +93,9 @@ unsigned int Journeys::traverseGraph(int prev, int curr, int end)
 
     m_citiesAdjacencyMatrix[prev][curr] += 1;
     m_citiesAdjacencyMatrix[curr][prev] += 1;
+    
+    m_citiesMemo[curr][end] = count;
+    m_citiesMemo[end][curr] = count;
 
     return count;
 }

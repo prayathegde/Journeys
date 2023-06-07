@@ -19,6 +19,7 @@ public:
 private:
     vector<vector<char>> m_citiesJoureyMap;
     vector<vector<int>> m_citiesAdjacencyMatrix;
+    vector<vector<int>> m_citiesMemo;
     int m_numberOfCities = 0;
 
     void init();
