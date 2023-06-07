@@ -17,6 +17,10 @@ Journeys::~Journeys()
 
 void Journeys::init()
 {
+    if (m_numberOfCities > 26) {
+        cerr << "Error :Number of Cities is Out of Range" << endl;
+        return;
+    }
     m_citiesAdjacencyMatrix = vector<vector<int>> (m_numberOfCities, vector<int> (m_numberOfCities, 0));
 
     for (auto connection : m_citiesJoureyMap) {
