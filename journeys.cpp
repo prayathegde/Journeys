@@ -51,6 +51,7 @@ unsigned int Journeys::getTotalNumJourneys(char start, char end)
     return 0;
 }
 
+// TODO: Consider Uppercase Characters as city names. 
 int Journeys::citiesToIndex(char c) {
     return  c - 'a';
 }
