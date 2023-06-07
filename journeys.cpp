@@ -17,6 +17,10 @@ Journeys::~Journeys()
 
 void Journeys::init()
 {
+    if (m_numberOfCities > 26) {
+        cerr << "Error :Number of Cities is Out of Range" << endl;
+        return;
+    }
     m_citiesAdjacencyMatrix = vector<vector<int>> (m_numberOfCities, vector<int> (m_numberOfCities, 0));
 
     for (auto connection : m_citiesJoureyMap) {
@@ -48,8 +52,6 @@ unsigned int Journeys::getTotalNumJourneys(char start, char end)
 {
     int st = citiesToIndex(start);
     int en = citiesToIndex(end);
-    auto graph = m_citiesAdjacencyMatrix;
-    vector<int> path;
     unsigned int count = 0;
     for (int i = 0; i < m_citiesAdjacencyMatrix.size(); i++) {
         auto v = m_citiesAdjacencyMatrix[st][i];
